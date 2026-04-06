@@ -33,8 +33,7 @@
   <img width="420" alt="專利文件分析流程圖" src="https://github.com/user-attachments/assets/ce20d097-ef75-4b61-84f9-81731b45c1cb" />
 </p>
 
-## ①Text Preprocessing
-
+### ①Text Preprocessing
 本專案在進行主題建模前，先對專利文本進行系統化的預處理，以降低雜訊並提升語意表示品質。主要處理流程如下：
 - **文本合併**：將專利標題（Title）與摘要（Abstract）整合為單一文本欄位，以保留完整語意資訊  
 - **文字正規化**：統一小寫、移除標點符號與數字，並進行空白字元整理  

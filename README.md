@@ -33,8 +33,15 @@
   <img width="420" alt="專利文件分析流程圖" src="https://github.com/user-attachments/assets/ce20d097-ef75-4b61-84f9-81731b45c1cb" />
 </p>
 
-### ① Text Preprocessing
-對專利文本進行清理與標準化，包含去除雜訊、停用詞與格式統一，以提升後續語意建模品質。
+## ①Text Preprocessing
+
+本專案在進行主題建模前，先對專利文本進行系統化的預處理，以降低雜訊並提升語意表示品質。主要處理流程如下：
+- **文本合併**：將專利標題（Title）與摘要（Abstract）整合為單一文本欄位，以保留完整語意資訊  
+- **文字正規化**：統一小寫、移除標點符號與數字，並進行空白字元整理  
+- **斷詞與詞形還原**：使用 spaCy 進行 tokenization，並結合 NLTK 進行詞形還原（lemmatization），降低詞彙變形影響  
+- **停用詞處理**：整合 spaCy 預設 stopwords 與自訂領域 stopwords，過濾高頻但低資訊量詞彙  
+- **向量化前處理分離**：區分 preprocessing 與 vectorizer（CountVectorizer）使用的 stopwords，以避免過度刪除關鍵技術詞  
+👉 此設計可有效減少雜訊干擾，並提升後續 embedding 與主題建模的語意品質與穩定性。
 
 ### ② Sentence Embedding
 使用 Sentence-Transformers 將文本轉換為語意向量，使模型能捕捉上下文語意，而非僅依賴詞頻。
@@ -50,14 +57,15 @@
 
 ### ⑥ Topic Evoluation（Coherence + Diversity）
 在主題建模過程中，主題數並非固定，而是針對多組候選主題數進行評估：
-
 - Coherence：衡量單一主題內關鍵詞的語意一致性
 - Diversity：衡量不同主題之間的區辨程度（以關鍵詞不重複比例計算）
-
 透過比較不同主題數下的 coherence 與 diversity 表現，選擇在「主題一致性」與「主題區辨性」之間取得平衡的設定，使主題結果更穩定且具解釋性。
+<p align="center">
+<img width="376" height="226" alt="image" src="https://github.com/user-attachments/assets/da276e94-9711-434a-be11-32aa4c808616" />
+</p>
 
 ### ⑦ Topic Summary（LLM）
-使用 LLaMA 2 對主題關鍵詞進行摘要生成，提升主題的可讀性與語意理解。
+使用 LLaMA 2 對主題關鍵詞和代表性文件進行摘要生成，提升主題的可讀性與語意理解。
 
 ### ⑧ Topics Trend Analysis
 結合專利公告年份（publication year），分析各主題隨時間的變化趨勢，識別技術的興起與衰退。
@@ -65,10 +73,11 @@
 ---
 
 ## 🔧 Tools（工具 / 套件 / 實作層）
-
-- Python
-- BERTopic
-- Sentence-Transformers
-- Scikit-learn
-- Pandas / NumPy
-- LLaMA 2（用於主題摘要生成）
+- Python  
+- BERTopic  
+- Sentence-Transformers  
+- Scikit-learn  
+- spaCy  
+- NLTK  
+- Pandas / NumPy  
+- LLaMA 2（主題摘要生成）

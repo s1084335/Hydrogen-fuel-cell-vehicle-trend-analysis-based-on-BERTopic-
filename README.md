@@ -39,8 +39,6 @@
 - **文字正規化**：統一小寫、移除標點符號與數字，並進行空白字元整理  
 - **斷詞與詞形還原**：使用 spaCy 進行 tokenization，並結合 NLTK 進行詞形還原（lemmatization），降低詞彙變形影響  
 - **停用詞處理**：整合 spaCy 預設 stopwords 與自訂領域 stopwords，過濾高頻但低資訊量詞彙  
-- **向量化前處理分離**：區分 preprocessing 與 vectorizer（CountVectorizer）使用的 stopwords，以避免過度刪除關鍵技術詞  
-👉 此設計可有效減少雜訊干擾，並提升後續 embedding 與主題建模的語意品質與穩定性。
 
 ### ② Sentence Embedding
 使用 Sentence-Transformers 將文本轉換為語意向量，使模型能捕捉上下文語意，而非僅依賴詞頻。
